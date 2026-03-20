@@ -1,6 +1,4 @@
 import { ReactNode } from 'react';
-import { motion } from 'motion/react';
-import Navigation from './Navigation';
 import Hero from './Hero';
 
 interface LayoutProps {
@@ -25,16 +23,8 @@ export default function Layout({ children }: LayoutProps) {
       {/* Main Content */}
       <main className="flex-grow pt-16 pb-20">
         <Hero />
-        <Navigation />
-        <div className="max-w-4xl mx-auto px-6 py-12">
-          <motion.div
-            key={window.location.pathname}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            {children}
-          </motion.div>
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          {children}
         </div>
       </main>
 

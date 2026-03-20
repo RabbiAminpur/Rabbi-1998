@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import Layout from './components/Layout';
 
 // Page Components
 const Overview = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">এক নজরে</h2>
+  <div className="space-y-6 py-4">
     <div className="prose prose-slate max-w-none">
       <p className="text-lg text-slate-600 leading-relaxed">
         স্বাগতম! আমি মীর রাব্বি হোসেন। আমি একজন প্রযুক্তি প্রেমী এবং সৃজনশীল মানুষ। গত কয়েক বছর ধরে আমি বিভিন্ন প্রজেক্টে কাজ করছি এবং নতুন নতুন প্রযুক্তি শিখছি। আমার লক্ষ্য হলো প্রযুক্তির মাধ্যমে মানুষের সমস্যা সমাধান করা এবং সুন্দর কিছু তৈরি করা।
@@ -24,11 +24,10 @@ const Overview = () => (
 );
 
 const Experience = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">কর্ম অভিজ্ঞতা</h2>
+  <div className="space-y-6 py-4">
     <div className="space-y-8">
       {[
-        { title: 'সিনিয়র ওয়েব ডেভেলপার', company: 'টেক সলিউশনস লিমিটেড', period: '২০২২ - বর্তমান', desc: 'এখানে আমি মূল ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট এবং টিম ম্যানেজমেন্টের কাজ করি।' },
+        { title: 'সিনিয়র ওয়েব ডেভেলপার', company: 'টেক সリューションস লিমিটেড', period: '২০২২ - বর্তমান', desc: 'এখানে আমি মূল ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট এবং টিম ম্যানেজমেন্টের কাজ করি।' },
         { title: 'জুনিয়র ডেভেলপার', company: 'ক্রিয়েটিভ আইটি', period: '২০২০ - ২০২২', desc: 'ফ্রন্টএন্ড ডিজাইন এবং ইউজার ইন্টারফেস তৈরিতে গুরুত্বপূর্ণ ভূমিকা পালন করেছি।' }
       ].map((job, i) => (
         <div key={i} className="relative pl-8 border-l-2 border-emerald-200">
@@ -43,8 +42,7 @@ const Experience = () => (
 );
 
 const Education = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">পড়াশোনা</h2>
+  <div className="space-y-6 py-4">
     <div className="grid gap-6">
       {[
         { degree: 'কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং (বিএসসি)', institute: 'ঢাকা বিশ্ববিদ্যালয়', year: '২০২০', result: 'সিজিপিএ: ৩.৮০' },
@@ -64,8 +62,7 @@ const Education = () => (
 );
 
 const OtherExperience = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">অন্যান্য অভিজ্ঞতা</h2>
+  <div className="space-y-6 py-4">
     <ul className="grid gap-4">
       {[
         'বিভিন্ন ওপেন সোর্স প্রজেক্টে অবদান রাখা।',
@@ -83,8 +80,7 @@ const OtherExperience = () => (
 );
 
 const About = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">আমার সম্পর্কে</h2>
+  <div className="space-y-6 py-4">
     <div className="prose prose-slate max-w-none text-slate-600 leading-relaxed">
       <p>
         আমি মীর রাব্বি হোসেন, একজন স্বপ্নদ্রষ্টা এবং পরিশ্রমী মানুষ। ছোটবেলা থেকেই প্রযুক্তির প্রতি আমার এক অন্যরকম টান ছিল। সেই টান থেকেই আজ আমি একজন ওয়েব ডেভেলপার হিসেবে নিজেকে গড়ে তুলেছি।
@@ -100,8 +96,7 @@ const About = () => (
 );
 
 const Contact = () => (
-  <div className="space-y-6">
-    <h2 className="text-3xl font-bold text-slate-900">যোগাযোগ</h2>
+  <div className="space-y-6 py-4">
     <div className="grid gap-6 md:grid-cols-2">
       <div className="space-y-4">
         <p className="text-slate-600">আমার সাথে যোগাযোগ করতে নিচের মাধ্যমগুলো ব্যবহার করতে পারেন:</p>
@@ -139,19 +134,59 @@ const Contact = () => (
   </div>
 );
 
+const menuItems = [
+  { id: 'overview', title: 'এক নজরে', component: <Overview /> },
+  { id: 'experience', title: 'কর্ম অভিজ্ঞতা', component: <Experience /> },
+  { id: 'education', title: 'পড়াশোনা', component: <Education /> },
+  { id: 'other', title: 'অন্যান্য অভিজ্ঞতা', component: <OtherExperience /> },
+  { id: 'about', title: 'আমার সম্পর্কে', component: <About /> },
+  { id: 'contact', title: 'যোগাযোগ', component: <Contact /> },
+];
+
 export default function App() {
+  const [activeId, setActiveId] = useState<string | null>('overview');
+
+  const toggleItem = (id: string) => {
+    setActiveId(activeId === id ? null : id);
+  };
+
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Overview />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/other" element={<OtherExperience />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <Layout>
+      <div className="space-y-4">
+        {menuItems.map((item) => (
+          <div key={item.id} className="border border-slate-100 rounded-2xl overflow-hidden shadow-sm bg-white">
+            <button
+              onClick={() => toggleItem(item.id)}
+              className={`w-full flex items-center justify-between p-5 text-left transition-colors ${
+                activeId === item.id ? 'bg-emerald-50 text-emerald-700' : 'hover:bg-slate-50 text-slate-800'
+              }`}
+            >
+              <span className="text-xl font-bold">{item.title}</span>
+              <motion.span
+                animate={{ rotate: activeId === item.id ? 180 : 0 }}
+                className="text-emerald-500"
+              >
+                ▼
+              </motion.span>
+            </button>
+            <AnimatePresence>
+              {activeId === item.id && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <div className="p-6 pt-0 border-t border-slate-50">
+                    {item.component}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
+    </Layout>
   );
 }
+
