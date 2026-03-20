@@ -6,10 +6,7 @@ import {
   GraduationCap, 
   Sparkles, 
   Info, 
-  Mail,
-  Facebook,
-  Linkedin,
-  Music
+  Mail
 } from 'lucide-react';
 import Layout from './components/Layout';
 import { useLanguage } from './LanguageContext';
@@ -116,37 +113,20 @@ const Contact = () => {
   return (
     <div className="space-y-6 py-4">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <p className="text-slate-600">{t.contactTitle}</p>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-slate-700">
-                <span className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">✉</span>
-                <span>rabbi@example.com</span>
-              </div>
-              <div className="flex items-center space-x-3 text-slate-700">
-                <span className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">📞</span>
-                <span>{t.phoneValue}</span>
-              </div>
-              <div className="flex items-center space-x-3 text-slate-700">
-                <span className="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">📍</span>
-                <span>{t.locValue}</span>
-              </div>
+        <div className="space-y-4">
+          <p className="text-slate-600">{t.contactTitle}</p>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3 text-slate-700">
+              <span className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center">✉</span>
+              <span>rabbi@example.com</span>
             </div>
-          </div>
-
-          <div className="pt-4 border-t border-slate-100">
-            <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">{t.socialMedia}</p>
-            <div className="flex space-x-4">
-              <a href="https://facebook.com/rabbi.aminpur" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#1877F2]/10 text-[#1877F2] rounded-2xl flex items-center justify-center hover:scale-110 transition-transform">
-                <Facebook className="w-6 h-6" />
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-[#0A66C2]/10 text-[#0A66C2] rounded-2xl flex items-center justify-center hover:scale-110 transition-transform">
-                <Linkedin className="w-6 h-6" />
-              </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-black/10 text-black rounded-2xl flex items-center justify-center hover:scale-110 transition-transform">
-                <Music className="w-6 h-6" />
-              </a>
+            <div className="flex items-center space-x-3 text-slate-700">
+              <span className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">📞</span>
+              <span>{t.phoneValue}</span>
+            </div>
+            <div className="flex items-center space-x-3 text-slate-700">
+              <span className="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">📍</span>
+              <span>{t.locValue}</span>
             </div>
           </div>
         </div>
@@ -201,35 +181,7 @@ export default function App() {
 
   return (
     <Layout>
-      <div className="pb-20 overflow-x-hidden">
-        {/* Top-Left Navigation - Sticky and 2 Rows */}
-        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-4 mb-8">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="grid grid-cols-3 gap-2 md:gap-4">
-              {menuItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveId(item.id)}
-                  className={`flex items-center justify-center md:justify-start space-x-2 px-2 md:px-4 py-2 rounded-xl transition-all duration-300 group ${
-                    activeId === item.id
-                      ? `${item.bgColor} shadow-sm border border-slate-100`
-                      : 'hover:bg-slate-50'
-                  }`}
-                >
-                  <item.icon className={`w-4 h-4 md:w-5 md:h-5 transition-colors ${
-                    activeId === item.id ? item.color : 'text-slate-400 group-hover:text-slate-600'
-                  }`} />
-                  <span className={`text-[10px] md:text-sm font-bold transition-colors truncate ${
-                    activeId === item.id ? 'text-slate-900' : 'text-slate-400 group-hover:text-slate-600'
-                  }`}>
-                    {item.title}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
+      <div className="pb-32 overflow-x-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeId}
@@ -248,11 +200,59 @@ export default function App() {
                 handleSwipe('right');
               }
             }}
-            className="cursor-grab active:cursor-grabbing px-4"
+            className="cursor-grab active:cursor-grabbing"
           >
+            <div className="flex items-center space-x-4 mb-8 border-b border-slate-100 pb-6">
+              <div className={`p-3 rounded-2xl ${activeItem?.bgColor}`}>
+                {activeItem && <activeItem.icon className={`w-8 h-8 ${activeItem.color}`} />}
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900">
+                {activeItem?.title}
+              </h2>
+            </div>
             {activeItem?.component}
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      {/* Fixed Footer Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 z-[60] shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+        <div className="max-w-4xl mx-auto px-2">
+          <div className="flex items-center justify-center h-20 overflow-x-auto no-scrollbar gap-1 md:gap-3 py-2">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveId(item.id)}
+                className={`flex flex-col items-center justify-center flex-shrink-0 px-2 md:px-3 py-1.5 rounded-xl transition-all duration-300 group relative ${
+                  activeId === item.id
+                    ? `${item.bgColor} scale-105`
+                    : 'hover:bg-slate-50'
+                }`}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`mb-0.5 p-1.5 rounded-lg transition-colors ${
+                    activeId === item.id ? item.color : 'text-slate-400 group-hover:text-slate-600'
+                  }`}
+                >
+                  <item.icon className="w-5 h-5" />
+                </motion.div>
+                <span className={`text-[8px] md:text-[10px] font-bold whitespace-nowrap transition-colors ${
+                  activeId === item.id ? item.color : 'text-slate-400 group-hover:text-slate-600'
+                }`}>
+                  {item.title}
+                </span>
+                {activeId === item.id && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className={`absolute bottom-0.5 w-1 h-1 rounded-full ${item.color.replace('text-', 'bg-')}`}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );

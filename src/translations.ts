@@ -52,9 +52,7 @@ export const translations = {
     formPlaceholderName: 'আপনার নাম',
     formPlaceholderEmail: 'আপনার ইমেইল',
     formPlaceholderMsg: 'আপনার বার্তা',
-    formSubmit: 'বার্তা পাঠান',
-    socialMedia: 'সামাজিক মাধ্যম',
-    coupleName: 'রিয়া❤️রাব্বি'
+    formSubmit: 'বার্তা পাঠান'
   },
   en: {
     name: 'Mir Rabbi Hossain',
@@ -107,8 +105,6 @@ export const translations = {
     formPlaceholderName: 'Your Name',
     formPlaceholderEmail: 'Your Email',
     formPlaceholderMsg: 'Your Message',
-    formSubmit: 'Send Message',
-    socialMedia: 'Social Media',
-    coupleName: 'Riya❤️Rabbi'
+    formSubmit: 'Send Message'
   }
 };
