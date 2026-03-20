@@ -203,20 +203,23 @@ export default function App() {
     <Layout>
       <div className="pb-20 overflow-x-hidden">
         {/* Top-Left Navigation - Sticky and 2 Rows */}
-        <div className="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 mb-8">
+        <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-4 mb-8">
           <div className="max-w-4xl mx-auto px-4">
             <div className="grid grid-cols-3 gap-2 md:gap-4">
               {menuItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveId(item.id)}
-                  className={`flex items-center justify-center px-2 md:px-4 py-2.5 rounded-xl transition-all duration-300 group ${
+                  className={`flex items-center justify-center md:justify-start space-x-2 px-2 md:px-4 py-2 rounded-xl transition-all duration-300 group ${
                     activeId === item.id
                       ? `${item.bgColor} shadow-sm border border-slate-100`
                       : 'hover:bg-slate-50'
                   }`}
                 >
-                  <span className={`text-[11px] md:text-sm font-bold transition-colors text-center ${
+                  <item.icon className={`w-4 h-4 md:w-5 md:h-5 transition-colors ${
+                    activeId === item.id ? item.color : 'text-slate-400 group-hover:text-slate-600'
+                  }`} />
+                  <span className={`text-[10px] md:text-sm font-bold transition-colors truncate ${
                     activeId === item.id ? 'text-slate-900' : 'text-slate-400 group-hover:text-slate-600'
                   }`}>
                     {item.title}
