@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useLanguage } from '../LanguageContext';
 import Hero from './Hero';
 
 interface LayoutProps {
@@ -6,16 +7,37 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { language, setLanguage, t } = useLanguage();
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-md z-50 border-b border-slate-100 shadow-sm flex items-center px-6">
         <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
           <div className="text-xl font-bold text-emerald-600 tracking-tight">
-            রাব্বি হোসেন
+            {t.name}
           </div>
-          <div className="hidden md:flex space-x-4 text-sm text-slate-500 font-medium">
-            <span>পোর্টফোলিও ২০২৬</span>
+          <div className="flex items-center bg-slate-100 p-1 rounded-lg">
+            <button
+              onClick={() => setLanguage('bn')}
+              className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
+                language === 'bn'
+                  ? 'bg-white text-emerald-600 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              বাং
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
+                language === 'en'
+                  ? 'bg-white text-emerald-600 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              ENG
+            </button>
           </div>
         </div>
       </header>
@@ -29,10 +51,8 @@ export default function Layout({ children }: LayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 h-16 bg-slate-50 border-t border-slate-200 z-50 flex items-center justify-center">
-        <p className="text-slate-500 font-medium text-sm">
-          রিয়া-রাব্বি ২০২৬
-        </p>
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
+        {/* Navigation is handled in App.tsx */}
       </footer>
     </div>
   );
